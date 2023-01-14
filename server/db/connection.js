@@ -1,18 +1,10 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-//
+async function connection() {
+  await mongoose.connect(
+    `mongodb+srv://${process.env.DATABASE_KEY}:${process.env.DATABASE_PASSWORD}@ferro-cluster.epmfm1r.mongodb.net/?retryWrites=true&w=majority`
+  );
+}
+console.log("MongoDB connection is successful");
 
-const DB =
-  "mongodb+srv://user404:ZgXOAaN89eCjz5eE@cluster0.j1x3i0z.mongodb.net/?retryWrites=true&w=majority";
-
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("conection started");
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+export default connection;

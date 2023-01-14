@@ -1,24 +1,23 @@
-require("dotenv").config();
-const express = require('express');
+import express from "express";
+import connection from "./db/connection.js";
+import cors from "cors";
+import bodyParser from "body-parser";
+import purchaseorders from "./models/purchaseorders.js";
+import router from "./routes/router.js";
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
-require("./db/connection");
-const cors = require("cors")
-const purchaseorders = require('./models/purchaseorders')
-
-const router = require("./routes/router")
-
+const port = 4000;
 
 app.use(cors());
-
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(router);
 app.use(express.urlencoded());
 
-const port = 8003;
+await connection();
 
-
-
-
-app.listen(port,()=>{
-    console.log(`app is started on port on ${port}`)
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
